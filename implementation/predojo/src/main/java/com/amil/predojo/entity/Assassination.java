@@ -1,4 +1,4 @@
-package com.amil.predojo.enity;
+package com.amil.predojo.entity;
 
 import java.sql.Date;
 

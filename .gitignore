@@ -1,0 +1,9 @@
+#Arquivos
+*~
+.project
+.classpath
+.tern-project
+
+#Diretórios
+target/
+.settings/

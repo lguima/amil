@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.amil.predojo.entity;
 
 import java.util.ArrayList;

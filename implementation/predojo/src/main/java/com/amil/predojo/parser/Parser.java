@@ -4,11 +4,11 @@
 package com.amil.predojo.parser;
 
 /**
- * @author softvaro
+ * @author Juliano Sena
  *
  */
 public interface Parser<T> {
 
-	T parse();
+	public T parse(String value);
 
 }

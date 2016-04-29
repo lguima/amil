@@ -1,29 +1,47 @@
 package com.amil.predojo.entity.match.parser.impl;
 
+import java.util.Date;
+
 import com.amil.predojo.entity.Match;
 import com.amil.predojo.parser.AbstracParser;
+import com.amil.predojo.parser.impl.DatetimeParser;
 
 /**
  * @author Juliano Sena
  *
  */
-public class MatchParser extends AbstracParser<Match> {
+public class MatchParser {
 
-	/**
-	 * @param pattern
-	 */
-	public MatchParser() {
-		super("New match\\s\\d+\\shas\\sstarted");
-	}
+	private static DatetimeParser datetimeParser = new DatetimeParser();
 
-	/* (non-Javadoc)
-	 * @see com.amil.predojo.parser.impl.Parse#parse(java.lang.String)
-	 */
-	public Match parse(String value) {
-		Match match = null;
-		if(isParsed(value)){
+	private MatchParser(){}
+
+	public static class StartedMatchParser extends AbstracParser<Match> {
+
+		public StartedMatchParser() {
+			super("New match\\s\\d+\\shas\\sstarted");
 		}
 
-		return match;
+		public Match parse(String value) {
+			Match match = null;
+			if(isParsed(value)){
+				match = new Match();
+				match.setStartDatetime(datetimeParser.parse(value));
+			}
+			return match;
+		}
+	}
+
+	public static class FinishedMatchParser extends AbstracParser<Date> {
+
+		public FinishedMatchParser() {
+			super("");
+		}
+
+		public Date parse(String value) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
 	}
 }

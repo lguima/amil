@@ -6,13 +6,16 @@ package com.amil.predojo.entity.match.parser.impl;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.Test;
 
 import com.amil.predojo.entity.Match;
+import com.amil.predojo.entity.match.parser.impl.MatchParser.StartedMatchParser;
 
 /**
  * @author Juliano Sena
@@ -22,27 +25,36 @@ public class MatchParserTest {
 
 	@Test
 	public void deveRetornarUmMatchComSucesso(){
-		MatchParser matchParser = new MatchParser();
-		Match match = matchParser.parse("23/04/2013 15:34:22 - New match 11348965 has started");
+		StartedMatchParser startedMatchParser = new MatchParser.StartedMatchParser();
+		Match match = startedMatchParser.parse("23/04/2013 15:34:22 - New match 11348965 has started");
 
-		assertThat("O match retornado do mÈtodo parse n„o deve ser nullo", match, is(notNullValue()));
+		assertThat("O match retornado do m√©todo parse n√£o deve ser nullo", match, is(notNullValue()));
 	}
 
 	@Test
 	public void deveRetornarUmMatchNulo(){
-		MatchParser matchParser = new MatchParser();
-		Match match = matchParser.parse("23/04/2013 15:34:22 11348965 has started");
+		StartedMatchParser startedMatchParser = new MatchParser.StartedMatchParser();
+		Match match = startedMatchParser.parse("23/04/2013 15:34:22 11348965 has started");
 
-		assertThat("O match retornado do mÈtodo parse deve ser nullo", match, is(nullValue()));
+		assertThat("O match retornado do m√©todo parse deve ser nullo", match, is(nullValue()));
 	}
 
 
 	@Test
 	public void deveRetornarUmMatchComDatetimeConfiguradoComSucesso(){
-		MatchParser matchParser = new MatchParser();
-		Match match = matchParser.parse("23/04/2013 15:34:22 - New match 11348965 has started");
+		StartedMatchParser startedMatchParser = new MatchParser.StartedMatchParser();
+		Match match = startedMatchParser.parse("23/04/2013 15:34:22 - New match 11348965 has started");
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.DATE, 23);
+		calendar.set(Calendar.MONTH, Calendar.APRIL);
+		calendar.set(Calendar.YEAR, 2013);
+		calendar.set(Calendar.HOUR_OF_DAY, 15);
+		calendar.set(Calendar.MINUTE, 34);
+		calendar.set(Calendar.SECOND, 22);
+		calendar.set(Calendar.MILLISECOND, 0);
+		Date dateExpected = calendar.getTime();
 
-		assertThat("O match retornado do mÈtodo parse n„o deve ser nullo", match, is(nullValue()));
-		assertThat("O datetime de criaÁ„o do match deve ser igual a 23/04/2013 15:34:22", match, is(nullValue()));
+		assertThat("O match retornado do m√©todo parse n√£o deve ser nullo", match, is(notNullValue()));
+		assertThat("O datetime de cria√ß√£o do match deve ser igual a 23/04/2013 15:34:22", match.getStartDatetime(), is(equalTo(dateExpected)));
 	}
 }

@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import com.amil.predojo.entity.Match;
-import com.amil.predojo.entity.match.parser.impl.MatchParser;
 import com.amil.predojo.file.log.reader.AbstractLogFileReader;
 
 /**
@@ -29,19 +28,10 @@ public class MatchLogFileReader extends AbstractLogFileReader<Collection<Match>>
 			FileReader fr = new FileReader(this.file);
 			BufferedReader bfr = new BufferedReader(fr);
 
-			String line = null;
-			int count = 0;
-			Match match = null;
-			while((line = bfr.readLine()) != null){
-				if(count == 0){
-					match = new MatchParser().parse(line);
-				}
-				System.out.println(match);
-			}
 
 			bfr.close();
 		} catch (Exception e) {
-			//TODO: Fazer log, dizendo que houve problema na comunicação com o arquivo de log
+			//TODO: Fazer log, dizendo que houve problema na comunicaÃ§Ã£o com o arquivo de log
 			return collection;
 		}
 

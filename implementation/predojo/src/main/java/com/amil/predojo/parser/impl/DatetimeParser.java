@@ -9,13 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 
-import com.amil.predojo.parser.AbstracParser;
+import com.amil.predojo.parser.AbstractParser;
 
 /**
  * @author Juliano Sena
  *
  */
-public class DatetimeParser extends AbstracParser<Date> {
+public class DatetimeParser extends AbstractParser<Date, String> {
 
 	public DatetimeParser() {
 		super("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)\\s([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]");
@@ -31,10 +31,10 @@ public class DatetimeParser extends AbstracParser<Date> {
 		if (this.isParsed(value)) {
 			try {
 				date = getDatetime(value);
-
-			} catch (ParseException pe){
-				date = null;
+			} catch (ParseException e){
+				return null;
 			}
+
 		}
 		return date;
 	}

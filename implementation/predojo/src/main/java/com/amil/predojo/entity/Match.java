@@ -12,7 +12,7 @@ import java.util.Date;
 public class Match {
 
 	private Long id;
-	private Date startDatetime;
+	private Date createDatetime;
 	private Date finishDatetime;
 	private Collection<Assassination> assassinations;
 
@@ -33,15 +33,15 @@ public class Match {
 	/**
 	 * @return the startDatetime
 	 */
-	public Date getStartDatetime() {
-		return startDatetime;
+	public Date getCreateDatetime() {
+		return createDatetime;
 	}
 
 	/**
 	 * @param startDatetime the startDatetime to set
 	 */
 	public void setStartDatetime(Date startDatetime) {
-		this.startDatetime = startDatetime;
+		this.createDatetime = startDatetime;
 	}
 
 	/**

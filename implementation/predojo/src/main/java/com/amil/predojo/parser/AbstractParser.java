@@ -10,12 +10,12 @@ import java.util.regex.Pattern;
  * @author Juliano Sena
  *
  */
-public abstract class AbstracParser<T> implements Parser<T> {
+public abstract class AbstractParser<T,E> implements Parser<T,E> {
 
 	protected final Pattern pattern;
 	protected Matcher matcher;
 
-	public AbstracParser(String regex){
+	public AbstractParser(String regex){
 		this.pattern = Pattern.compile(regex);
 	}
 

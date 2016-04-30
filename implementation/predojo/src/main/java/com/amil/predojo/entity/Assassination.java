@@ -1,6 +1,6 @@
 package com.amil.predojo.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Assassination {
 

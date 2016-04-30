@@ -28,10 +28,10 @@ public class CreateMatchParserTest {
 		try {
 			Match match = createMatchParser.parse(toParse);
 
-			assertThat("Match retornado n√£o deve ser nulo", match, is(notNullValue()));
+			assertThat("Match retornado n„o deve ser nulo", match, is(notNullValue()));
 		} catch (ParseException e) {
 			fail(
-				String.format("N√£o foi poss√≠vel realizar o parser de '%s'", toParse)
+				String.format("N„o foi possÌvel realizar o parser de '%s'", toParse)
 			);
 		}
 	}
@@ -43,11 +43,11 @@ public class CreateMatchParserTest {
 		try {
 			Match match = createMatchParser.parse(toParse);
 
-			assertThat("Match retornado n√£o deve ser nulo", match, is(notNullValue()));
-			assertThat("Data de cria√ß√£o setada no match n√£o deve ser nula", match.getCreateDatetime(), is(notNullValue()));
+			assertThat("Match retornado n„o deve ser nulo", match, is(notNullValue()));
+			assertThat("Data de criaÁ„o setada no match n„o deve ser nula", match.getCreateDatetime(), is(notNullValue()));
 		} catch (ParseException e) {
 			fail(
-				String.format("N√£o foi poss√≠vel realizar o parser de '%s'", toParse)
+				String.format("N„o foi possÌvel realizar o parser de '%s'", toParse)
 			);
 		}
 	}
@@ -58,18 +58,53 @@ public class CreateMatchParserTest {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2013, Calendar.APRIL, 23, 15, 34, 22);
 		calendar.set(Calendar.MILLISECOND, 0);
-		Date dateExpected = calendar.getTime();
+		Date expectedDate = calendar.getTime();
 
 		String toParse = "23/04/2013 15:34:22 - New match 11348965 has started";
 		try {
 			Match match = createMatchParser.parse(toParse);
 
-			assertThat("Match retornado n√£o deve ser nulo", match, is(notNullValue()));
-			assertThat("Data de cria√ß√£o setada no match n√£o deve ser nula", match.getCreateDatetime(), is(notNullValue()));
-			assertThat("Data de cria√ß√£o setada no match n√£o deve ser nula", dateExpected, equalTo(match.getCreateDatetime()));
+			assertThat("Match retornado n„o deve ser nulo", match, is(notNullValue()));
+			assertThat("Data de criaÁ„o setada no match n„o deve ser nula", match.getCreateDatetime(), is(notNullValue()));
+			assertThat("Data de criaÁ„o setada no match n„o deve ser nula", expectedDate, equalTo(match.getCreateDatetime()));
 		} catch (ParseException e) {
 			fail(
-				String.format("N√£o foi poss√≠vel realizar o parser de '%s'", toParse)
+				String.format("n„o foi possÌvel realizar o parser de '%s'", toParse)
+			);
+		}
+	}
+
+	@Test
+	public void deveRetornarMatchComIdConfiguradoComSucesso(){
+		CreateMatchParser createMatchParser = new CreateMatchParser();
+		String toParse = "23/04/2013 15:34:22 - New match 11348965 has started";
+
+		try {
+			Match match = createMatchParser.parse(toParse);
+
+			assertThat("Match retornado n„o deve ser nulo", match, is(notNullValue()));
+			assertThat("Id do match deve ser 11348965", match.getId(), is(notNullValue()));
+		} catch (ParseException e) {
+			fail(
+				String.format("n„o foi possÌvel realizar o parser de '%s'", toParse)
+			);
+		}
+	}
+
+	@Test
+	public void deveRetornarMatchComIdIgualDoTextoParseadoComSucesso(){
+		CreateMatchParser createMatchParser = new CreateMatchParser();
+		String toParse = "23/04/2013 15:34:22 - New match 11348965 has started";
+
+		try {
+			Match match = createMatchParser.parse(toParse);
+
+			assertThat("Match retornado n„o deve ser nulo", match, is(notNullValue()));
+			assertThat("Id do match deve ser 11348965", match.getId(), is(notNullValue()));
+			assertThat("Id do match deve ser 11348965", 11348965l, equalTo(match.getId()));
+		} catch (ParseException e) {
+			fail(
+				String.format("n„o foi possÌvel realizar o parser de '%s'", toParse)
 			);
 		}
 	}

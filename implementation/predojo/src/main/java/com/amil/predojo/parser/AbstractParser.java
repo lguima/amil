@@ -12,11 +12,13 @@ import java.util.regex.Pattern;
  */
 public abstract class AbstractParser<T,E> implements Parser<T,E> {
 
+	public final String REGEX;
 	protected final Pattern pattern;
 	protected Matcher matcher;
 
 	public AbstractParser(String regex){
-		this.pattern = Pattern.compile(regex);
+		REGEX = regex;
+		this.pattern = Pattern.compile(REGEX);
 	}
 
 	/**

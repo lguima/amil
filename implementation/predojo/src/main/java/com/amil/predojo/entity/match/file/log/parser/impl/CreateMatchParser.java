@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.util.Date;
 
 import com.amil.predojo.entity.Match;
+import com.amil.predojo.entity.match.parser.impl.MatchIdParser;
 import com.amil.predojo.parser.AbstractParser;
 import com.amil.predojo.parser.impl.DatetimeParser;
 
@@ -24,9 +25,15 @@ public class CreateMatchParser extends AbstractParser<Match, String> {
 		Match match = null;
 		if(isParsed(value)){
 			match = new Match();
+			//Datime parse process
 			DatetimeParser datetimeParser = new DatetimeParser();
 			Date finishDatetime = datetimeParser.parse(value);
 			match.setStartDatetime(finishDatetime);
+
+			//Match id parse process
+			MatchIdParser matchIdParser = new MatchIdParser();
+			Long id = matchIdParser.parse(value);
+			match.setId(id);
 		}
 
 		return match;

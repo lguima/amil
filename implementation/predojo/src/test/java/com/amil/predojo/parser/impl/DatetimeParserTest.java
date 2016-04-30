@@ -31,7 +31,7 @@ public class DatetimeParserTest {
 		calendar.set(Calendar.MILLISECOND, 0);
 		Date dateExpected = calendar.getTime();
 
-		assertThat("O valor da data n√£o deve ser nulo", date, is(notNullValue()));
+		assertThat("O valor da data n„o deve ser nulo", date, is(notNullValue()));
 		assertThat("O valor da data deve ser 23/04/2013 15:34:22", date.getTime(), is(equalTo(dateExpected.getTime())));
 	}
 
@@ -40,6 +40,6 @@ public class DatetimeParserTest {
 		DatetimeParser datetimeParser = new DatetimeParser();
 		Date date = datetimeParser.parse("31/04/2013 15:34:22 - New match 11348965 has started");
 
-		assertThat("O valor de date n√£o deve ser nulo", date, is(nullValue()));
+		assertThat("O valor de date n„o deve ser nulo", date, is(nullValue()));
 	}
 }

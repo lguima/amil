@@ -20,16 +20,21 @@ public class FinishMatchParser extends AbstractParser<Match, String> {
 
 	public FinishMatchParser(Match match){
 		super("Match\\s\\d+\\shas\\sended");
+		if(match == null){
+			throw new IllegalArgumentException("Para o encerramento o match não pode ser nulo ou não startado!");
+		}
 		this.match = match;
 	}
 
 	public Match parse(String value) throws ParseException {
+		Match match = this.match;
 		if(isParsed(value)){
 			DatetimeParser datetimeParser = new DatetimeParser();
 			Date finishDatetime = datetimeParser.parse(value);
-			this.match.setFinishDatetime(finishDatetime);
+			match.setFinishDatetime(finishDatetime);
+			return match;
+		} else {
+			return null;
 		}
-
-		return match;
 	}
 }

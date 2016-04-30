@@ -110,4 +110,34 @@ public class AssassinationParserTest {
 			);
 		}
 	}
+
+	@Test
+	public void deveRetornarUmAssassinatoComDatetimeAssassinoVictimWeaponIguaisAoDoTextoParseado(){
+		AssassinationParser assassinationParser = new AssassinationParser();
+		String toParse = "23/04/2013 15:36:04 - Roman killed Nick using M16";
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(2013, Calendar.APRIL, 23, 15, 36, 04);
+		calendar.set(Calendar.MILLISECOND, 0);
+		Date expectedDate = calendar.getTime();
+
+		try {
+			Assassination assassination = assassinationParser.parse(toParse);
+
+			assertThat("Assassinato retornado não deve ser nulo", assassination, is(notNullValue()));
+			assertThat("Datetime do assassinato não deve ser nulo", assassination.getDatetime(), is(notNullValue()));
+			assertThat("Datetime do assassinato deve ser 23/04/2013 15:36:04", expectedDate, equalTo(assassination.getDatetime()));
+			assertThat("O assassino não pode ser nulo", assassination.getMurder(), is(notNullValue()));
+			assertThat("O nome do assassino deve ser Roman", "Roman", equalTo(assassination.getMurder().getName()));
+
+			assertThat("A vítima não deve ser nula", assassination.getVictim(), is(notNullValue()));
+			assertThat("O nome da vítima deve ser Nick", "Nick", equalTo(assassination.getVictim().getName()));
+
+			assertThat("O arma não deve ser nula", assassination.getWeapon(), is(notNullValue()));
+			assertThat("O nome da arma deve ser M16", "M16", equalTo(assassination.getWeapon().getName()));
+		} catch (ParseException e){
+			fail(
+				String.format("Não foi possível realizar o parser de '%s'", toParse)
+			);
+		}
+	}
 }

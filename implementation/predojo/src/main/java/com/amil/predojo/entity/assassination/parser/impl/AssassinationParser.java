@@ -7,6 +7,8 @@ import java.text.ParseException;
 
 import com.amil.predojo.entity.Assassination;
 import com.amil.predojo.entity.Player;
+import com.amil.predojo.entity.Weapon;
+import com.amil.predojo.entity.weapon.parser.impl.WeaponParser;
 import com.amil.predojo.parser.AbstractParser;
 import com.amil.predojo.parser.impl.DatetimeParser;
 
@@ -41,6 +43,10 @@ public class AssassinationParser extends AbstractParser<Assassination, String> {
 			VictimParser victimParser = new VictimParser();
 			Player victim = victimParser.parse(value);
 			assassination.setVictim(victim);
+
+			WeaponParser weaponParser = new WeaponParser();
+			Weapon weapon = weaponParser.parse(value);
+			assassination.setWeapon(weapon);
 		}
 		return assassination;
 	}

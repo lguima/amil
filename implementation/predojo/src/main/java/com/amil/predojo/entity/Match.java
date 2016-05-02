@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
+
+import com.amil.predojo.entity.match.parser.exception.FinishMatchException;
 
 /**
  * @author Juliano Sena
@@ -11,10 +14,20 @@ import java.util.Date;
  */
 public class Match {
 
+	private enum STATUS {
+		INICIAL, EM_ANDAMENTO, ENCERRADO;
+	}
+
 	private Long id;
 	private Date createDatetime;
 	private Date finishDatetime;
-	private Collection<Assassination> assassinations;
+	private Collection<Murder> murders;
+	private STATUS status = STATUS.INICIAL;
+
+	public Match(Date datetime){
+		this.createDatetime = datetime;
+		this.status = STATUS.EM_ANDAMENTO;
+	}
 
 	/**
 	 * @return the id
@@ -38,13 +51,6 @@ public class Match {
 	}
 
 	/**
-	 * @param startDatetime the startDatetime to set
-	 */
-	public void setStartDatetime(Date startDatetime) {
-		this.createDatetime = startDatetime;
-	}
-
-	/**
 	 * @return the finishDatetime
 	 */
 	public Date getFinishDatetime() {
@@ -52,30 +58,56 @@ public class Match {
 	}
 
 	/**
-	 * @param finishDatetime the finishDatetime to set
-	 */
-	public void setFinishDatetime(Date finishDatetime) {
-		this.finishDatetime = finishDatetime;
-	}
-
-	/**
-	 * Add assassination for this Match.
+	 * Add murder for this Match.
 	 * @param assassinatio current aasassination
 	 */
-	public void addAssassination(Assassination assassinatio){
-		if(this.assassinations == null){
-			this.assassinations = new ArrayList<Assassination>();
+	public void addMurder(Murder murder){
+		if(this.murders == null){
+			this.murders = new ArrayList<Murder>();
 		}
 
-		this.assassinations.add(assassinatio);
+		this.murders.add(murder);
+	}
+
+	public void finish(Date datetime) throws FinishMatchException {
+		if(datetime.before(createDatetime)){
+			throw new FinishMatchException("Não é possível encerrar um Match com data de encerramento menor que data de criação!");
+		}
+
+		this.changeStatus(STATUS.ENCERRADO);
+
+		this.finishDatetime = datetime;
+	}
+
+	public void changeStatus(STATUS status) throws FinishMatchException{
+		if(this.status.equals(STATUS.ENCERRADO)){
+			throw new FinishMatchException("Não é possível encerrar um match já encerrado!");
+		}
+		this.status = status;
 	}
 
 	/**
-	 * Returns for read all assassinations.
-	 * @return Collection<Assassinations> assassinations
+	 * Returns for read all murders.
+	 * @return Collection<Murders> murders
 	 */
-	public Collection<Assassination> getAssassinations(){
-		return Collections.unmodifiableCollection(this.assassinations);
+	public Collection<Murder> getMurders(){
+		return Collections.unmodifiableCollection(this.murders);
+	}
+
+	/**
+	 * Return players of this match
+	 * @return
+	 */
+	public Collection<Player> players(){
+		Collection<Player> playersCollection = new HashSet<>();
+		for(Murder murder : this.murders){
+			playersCollection.add(murder.getkiller());
+		}
+		for(Murder murder : this.murders){
+			playersCollection.add(murder.getVictim());
+		}
+
+		return playersCollection;
 	}
 
 	/* (non-Javadoc)

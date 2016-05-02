@@ -2,10 +2,10 @@ package com.amil.predojo.entity;
 
 import java.util.Date;
 
-public class Assassination {
+public class Murder {
 
 	private Date datetime;
-	private Player murder;
+	private Player killer;
 	private Player Victim;
 	private Weapon weapon;
 
@@ -24,17 +24,17 @@ public class Assassination {
 	}
 
 	/**
-	 * @return the murder
+	 * @return the killer
 	 */
-	public Player getMurder() {
-		return murder;
+	public Player getkiller() {
+		return killer;
 	}
 
 	/**
-	 * @param murder the murder to set
+	 * @param killer the killer to set
 	 */
-	public void setMurder(Player murder) {
-		this.murder = murder;
+	public void setKiller(Player killer) {
+		this.killer = killer;
 	}
 
 	/**

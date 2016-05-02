@@ -20,6 +20,7 @@ import org.junit.rules.ExpectedException;
 import com.amil.predojo.entity.Match;
 import com.amil.predojo.entity.match.file.log.parser.impl.CreateMatchParser;
 import com.amil.predojo.entity.match.file.log.parser.impl.FinishMatchParser;
+import com.amil.predojo.entity.match.parser.exception.FinishMatchException;
 
 /**
  * @author Juliano Sena
@@ -39,18 +40,18 @@ public class FinishMatchParserTest {
 			FinishMatchParser finishMatchParser = new FinishMatchParser(match);
 			match = finishMatchParser.parse(toFinishMatchParse);
 
-			assertThat("Match retornado não deve ser nulo", match, is(notNullValue()));
-			assertThat("O datetime de finalização do match não pode ser nulo", match.getFinishDatetime(), is(notNullValue()));
+			assertThat("Match retornado nÃ£o deve ser nulo", match, is(notNullValue()));
+			assertThat("O datetime de finalizaï¿½ï¿½o do match nÃ£o pode ser nulo", match.getFinishDatetime(), is(notNullValue()));
 			
 		} catch (ParseException e) {
-			fail("Problemas ao realizar o parse de criação ou finalização do match");
+			fail("Problemas ao realizar o parse de criaï¿½ï¿½o ou finalizaï¿½ï¿½o do match");
 		}
 	}
 
 	@Test
 	public void deveRetornarRetornarExcecaoDizendoQueOMatchPassadoNaoDeveSerNulo(){
 		thrown.expect(IllegalArgumentException.class);
-		thrown.expectMessage("Para o encerramento o match não pode ser nulo ou não startado!");
+		thrown.expectMessage("Para o encerramento o match nÃ£o pode ser nulo ou nÃ£o startado!");
 
 		Match matchNulo = null;
 		new FinishMatchParser(matchNulo);
@@ -69,12 +70,12 @@ public class FinishMatchParserTest {
 			FinishMatchParser finishMatchParser = new FinishMatchParser(match);
 			match = finishMatchParser.parse(toParse);
 
-			assertThat("Match retornado não deve ser nulo", match, is(notNullValue()));
-			assertThat("A data de criação não pode ter sido alterada", matchCreationDate, equalTo(match.getCreateDatetime()));
-			assertThat("O datetime de finalização do match não pode ser nulo", match.getFinishDatetime(), is(notNullValue()));
+			assertThat("Match retornado nÃ£o deve ser nulo", match, is(notNullValue()));
+			assertThat("A data de criaï¿½ï¿½o nÃ£o pode ter sido alterada", matchCreationDate, equalTo(match.getCreateDatetime()));
+			assertThat("O datetime de finalizaï¿½ï¿½o do match nÃ£o pode ser nulo", match.getFinishDatetime(), is(notNullValue()));
 			
 		} catch (ParseException e) {
-			fail("Problemas ao realizar o parse de criação ou finalização do match");
+			fail("Problemas ao realizar o parse de criaï¿½ï¿½o ou finalizaï¿½ï¿½o do match");
 		}
 	}
 
@@ -92,12 +93,52 @@ public class FinishMatchParserTest {
 
 			match = finishMatchParser.parse(toParse);
 
-			assertThat("Match retornado não deve ser nulo", match, is(notNullValue()));
-			assertThat("O datetime de finalização do match não pode ser nulo", match.getFinishDatetime(), is(notNullValue()));
-			assertThat("O datetime de finalização deve ser igual ao do texto parseado", finishedMatchDateExpected, equalTo(match.getFinishDatetime()));
+			assertThat("Match retornado nÃ£o deve ser nulo", match, is(notNullValue()));
+			assertThat("O datetime de finalizaï¿½ï¿½o do match nÃ£o pode ser nulo", match.getFinishDatetime(), is(notNullValue()));
+			assertThat("O datetime de finalizaï¿½ï¿½o deve ser igual ao do texto parseado", finishedMatchDateExpected, equalTo(match.getFinishDatetime()));
 			
 		} catch (ParseException e) {
-			fail("Problemas ao realizar o parse de criação ou finalização do match");
+			fail("Problemas ao realizar o parse de criaï¿½ï¿½o ou finalizaï¿½ï¿½o do match");
 		}
+	}
+
+	@Test
+	public void deveRetornarExceptionDizendoQueIdEncerramentoDoMatchEstaDivergenteDoIdDoMatchPassado() throws ParseException{
+		thrown.expect(ParseException.class);
+		thrown.expectMessage("Id de encerramento divergente do id do match recebido como parï¿½metro");
+
+		Match match = new CreateMatchParser().parse("23/04/2013 15:34:22 - New match 11348965 has started");
+
+		String toParse = "23/04/2013 15:39:22 - Match 11348962 has ended";
+		FinishMatchParser finishMatchParser = new FinishMatchParser(match);
+
+		finishMatchParser.parse(toParse);
+	}
+
+	@Test
+	public void deveRetornarExceptionDizendoQueNaoEhPossivelEncerramentoDeUmMatchJaEncerrado() throws ParseException, FinishMatchException{
+		thrown.expect(ParseException.class);
+		thrown.expectMessage("NÃ£o ï¿½ possÃ­vel encerrar um match jï¿½ encerrado!");
+
+		Match match = new CreateMatchParser().parse("23/04/2013 15:34:22 - New match 11348965 has started");
+		match.finish(new Date());
+
+		String toParse = "23/04/2013 15:39:22 - Match 11348965 has ended";
+		FinishMatchParser finishMatchParser = new FinishMatchParser(match);
+
+		finishMatchParser.parse(toParse);
+	}
+
+	@Test
+	public void deveRetornarExceptionDizendoQueNaoEhPossivelEncerramentoComUmaDataAnteriorDaDeCriacao() throws ParseException {
+		thrown.expect(ParseException.class);
+		thrown.expectMessage("NÃ£o ï¿½ possÃ­vel encerrar um Match com data de encerramento menor que data de criaï¿½ï¿½o!");
+
+		Match match = new CreateMatchParser().parse("23/04/2013 15:34:22 - New match 11348965 has started");
+
+		String toParse = "23/04/2013 15:34:21 - Match 11348965 has ended";
+		FinishMatchParser finishMatchParser = new FinishMatchParser(match);
+
+		finishMatchParser.parse(toParse);
 	}
 }

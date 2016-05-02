@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.amil.predojo.entity.assassination.parser.impl;
+package com.amil.predojo.entity.player.parser.impl;
 
 import java.text.ParseException;
 
@@ -13,9 +13,9 @@ import com.amil.predojo.parser.impl.DatetimeParser;
  * @author Juliano Sena
  *
  */
-public class MurderParser extends AbstractParser<Player, String> {
+public class KillerParser extends AbstractParser<Player, String> {
 
-	public MurderParser(){
+	public KillerParser(){
 		super("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)\\s([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]\\s-\\s\\<*[\\w\\s]+\\>*\\skilled");
 	}
 
@@ -23,14 +23,14 @@ public class MurderParser extends AbstractParser<Player, String> {
 	 * @see com.amil.predojo.parser.Parser#parse(java.lang.Object)
 	 */
 	public Player parse(String value) throws ParseException {
-		Player murder = null;
+		Player killer = null;
 		if(isParsed(value)){
 			String regex = new DatetimeParser().REGEX + "\\s-\\s";
-			String murderName = value.replaceAll(regex, "");
-			murderName = murderName.replaceAll("\\skilled\\s.*", "");
-			murder = new Player();
-			murder.setName(murderName);
+			String killerName = value.replaceAll(regex, "");
+			killerName = killerName.replaceAll("\\skilled\\s.*", "");
+			killer = new Player();
+			killer.setName(killerName);
 		}
-		return murder;
+		return killer;
 	}
 }

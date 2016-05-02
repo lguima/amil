@@ -11,8 +11,8 @@ import com.amil.predojo.file.reader.AbstractFileReader;
  */
 public abstract class AbstractLogFileReader<T> extends AbstractFileReader<T> {
 
-	public AbstractLogFileReader(String pathFile) throws FileNotFoundException {
-		super(pathFile);
+	public AbstractLogFileReader(String filePath) throws FileNotFoundException {
+		super(filePath);
 	}
 
 	public AbstractLogFileReader(File file) throws FileNotFoundException {

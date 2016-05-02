@@ -19,11 +19,11 @@ public abstract class AbstractFileReader<T> implements FileReader<T> {
 		}
 	}
 
-	public AbstractFileReader(String pathFile) throws FileNotFoundException {
-		this.file = new File(pathFile);
+	public AbstractFileReader(String filePath) throws FileNotFoundException {
+		this.file = new File(filePath);
 		if(this.file != null && !this.file.exists()){
 			throw new FileNotFoundException(
-					String.format("Arquivo %s inexistente!", pathFile)
+					String.format("Arquivo %s inexistente!", filePath)
 			);
 		}
 	}

@@ -1,7 +1,4 @@
-/**
- * 
- */
-package com.amil.predojo.entity.assassination.parser.impl;
+package com.amil.predojo.entity.murder.parser.impl;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.fail;
@@ -29,11 +26,11 @@ public class WeaponParserTest {
 
 		try {
 			Weapon weapon = weaponParser.parse(toParse);
-			assertThat("A arma n„o pode ser nula", weapon, is(notNullValue()));
+			assertThat("A arma n√£o pode ser nula", weapon, is(notNullValue()));
 
 		} catch (ParseException e) {
 			fail(
-				String.format("N„o foi possÌvel realizar o parser de '%s'", toParse)
+				String.format("N√£o foi poss√≠vel realizar o parser de '%s'", toParse)
 			);
 		}
 	}
@@ -46,12 +43,12 @@ public class WeaponParserTest {
 
 		try {
 			Weapon weapon = weaponParser.parse(toParse);
-			assertThat("A arma n„o pode ser nula", weapon, is(notNullValue()));
+			assertThat("A arma n√£o pode ser nula", weapon, is(notNullValue()));
 			assertThat("O nome da arma deve ser 'M14 Colta Contra-Terroristas'", expectedWeaponName, equalTo(weapon.getName()));
 
 		} catch (ParseException e) {
 			fail(
-				String.format("N„o foi possÌvel realizar o parser de '%s'", toParse)
+				String.format("N√£o foi poss√≠vel realizar o parser de '%s'", toParse)
 			);
 		}
 	}

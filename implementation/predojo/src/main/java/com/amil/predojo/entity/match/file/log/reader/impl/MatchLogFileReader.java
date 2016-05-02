@@ -8,7 +8,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 
+import com.amil.predojo.entity.Murder;
 import com.amil.predojo.entity.Match;
+import com.amil.predojo.entity.murder.parser.impl.MurderParser;
 import com.amil.predojo.entity.match.file.log.parser.impl.CreateMatchParser;
 import com.amil.predojo.entity.match.file.log.parser.impl.FinishMatchParser;
 import com.amil.predojo.file.log.reader.AbstractLogFileReader;
@@ -23,8 +25,8 @@ public class MatchLogFileReader extends AbstractLogFileReader<Collection<Match>>
 		super(file);
 	}
 
-	public MatchLogFileReader(String pathFile) throws FileNotFoundException {
-		super(pathFile);
+	public MatchLogFileReader(String filePath) throws FileNotFoundException {
+		super(filePath);
 	}
 
 	/* (non-Javadoc)
@@ -52,6 +54,12 @@ public class MatchLogFileReader extends AbstractLogFileReader<Collection<Match>>
 					continue;
 				}
 
+				MurderParser murderParser = new MurderParser();
+				Murder murder = murderParser.parse(line);
+				if(murder != null){
+					match.addMurder(murder);
+					continue;
+				}
 
 				FinishMatchParser finishMatch = new FinishMatchParser(match);
 				Match finishedMatch = finishMatch.parse(line);
@@ -60,15 +68,15 @@ public class MatchLogFileReader extends AbstractLogFileReader<Collection<Match>>
 					count = 0;
 				}
 			}
-			//Se o match n„o foi encerrado, adicione ele a coleÁ„o, pois È o ˙ltimo match do log
-			//e est· em andamento
+			//Se o match n√£o foi encerrado, adicione ele a cole√ß√£o, posi√ß√£o o √∫ltimo match do log
+			//e est√© em andamento
 			if(match != null && match.getFinishDatetime() == null){
 				collection.add(match);
 			}
 
 			bfr.close();
 		} catch (Exception e) {
-			//TODO: Fazer log, dizendo que houve problema na comunicaÁ„o com o arquivo de log
+			//TODO: Fazer log, dizendo que houve problema na comunica√ß√£o com o arquivo de log
 			return Collections.emptyList();
 		}
 

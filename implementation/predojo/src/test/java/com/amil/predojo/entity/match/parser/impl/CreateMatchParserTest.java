@@ -28,10 +28,10 @@ public class CreateMatchParserTest {
 		try {
 			Match match = createMatchParser.parse(toParse);
 
-			assertThat("Match retornado não deve ser nulo", match, is(notNullValue()));
+			assertThat("Match retornado nÃ£o deve ser nulo", match, is(notNullValue()));
 		} catch (ParseException e) {
 			fail(
-				String.format("Não foi possível realizar o parser de '%s'", toParse)
+				String.format("NÃ£o foi possÃ­vel realizar o parser de '%s'", toParse)
 			);
 		}
 	}
@@ -43,11 +43,11 @@ public class CreateMatchParserTest {
 		try {
 			Match match = createMatchParser.parse(toParse);
 
-			assertThat("Match retornado não deve ser nulo", match, is(notNullValue()));
-			assertThat("Data de criação setada no match não deve ser nula", match.getCreateDatetime(), is(notNullValue()));
+			assertThat("Match retornado nÃ£o deve ser nulo", match, is(notNullValue()));
+			assertThat("Data de criaï¿½ï¿½o setada no match nÃ£o deve ser nula", match.getCreateDatetime(), is(notNullValue()));
 		} catch (ParseException e) {
 			fail(
-				String.format("Não foi possível realizar o parser de '%s'", toParse)
+				String.format("NÃ£o foi possÃ­vel realizar o parser de '%s'", toParse)
 			);
 		}
 	}
@@ -64,12 +64,12 @@ public class CreateMatchParserTest {
 		try {
 			Match match = createMatchParser.parse(toParse);
 
-			assertThat("Match retornado não deve ser nulo", match, is(notNullValue()));
-			assertThat("Data de criação setada no match não deve ser nula", match.getCreateDatetime(), is(notNullValue()));
-			assertThat("Data de criação setada no match não deve ser nula", expectedDate, equalTo(match.getCreateDatetime()));
+			assertThat("Match retornado nÃ£o deve ser nulo", match, is(notNullValue()));
+			assertThat("Data de criaï¿½ï¿½o setada no match nÃ£o deve ser nula", match.getCreateDatetime(), is(notNullValue()));
+			assertThat("Data de criaï¿½ï¿½o setada no match nÃ£o deve ser nula", expectedDate, equalTo(match.getCreateDatetime()));
 		} catch (ParseException e) {
 			fail(
-				String.format("não foi possível realizar o parser de '%s'", toParse)
+				String.format("NÃ£o foi possÃ­vel realizar o parser de '%s'", toParse)
 			);
 		}
 	}
@@ -82,11 +82,11 @@ public class CreateMatchParserTest {
 		try {
 			Match match = createMatchParser.parse(toParse);
 
-			assertThat("Match retornado não deve ser nulo", match, is(notNullValue()));
+			assertThat("Match retornado nÃ£o deve ser nulo", match, is(notNullValue()));
 			assertThat("Id do match deve ser 11348965", match.getId(), is(notNullValue()));
 		} catch (ParseException e) {
 			fail(
-				String.format("não foi possível realizar o parser de '%s'", toParse)
+				String.format("NÃ£o foi possÃ­vel realizar o parser de '%s'", toParse)
 			);
 		}
 	}
@@ -99,12 +99,12 @@ public class CreateMatchParserTest {
 		try {
 			Match match = createMatchParser.parse(toParse);
 
-			assertThat("Match retornado não deve ser nulo", match, is(notNullValue()));
+			assertThat("Match retornado nÃ£o deve ser nulo", match, is(notNullValue()));
 			assertThat("Id do match deve ser 11348965", match.getId(), is(notNullValue()));
 			assertThat("Id do match deve ser 11348965", 11348965l, equalTo(match.getId()));
 		} catch (ParseException e) {
 			fail(
-				String.format("não foi possível realizar o parser de '%s'", toParse)
+				String.format("NÃ£o foi possÃ­vel realizar o parser de '%s'", toParse)
 			);
 		}
 	}

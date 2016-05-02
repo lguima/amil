@@ -28,29 +28,29 @@ public class MatchLogFileReaderTest {
 
 	@Test
 	public void deveRetornarTresMatchsComSucesso(){
-		String pathFile = "src/test/resources/match/log/tres-matchs.log";
+		String filePath = "src/test/resources/match/log/tres-matchs.log";
 		try {
-			MatchLogFileReader matchLogFileReader = new MatchLogFileReader(pathFile);
+			MatchLogFileReader matchLogFileReader = new MatchLogFileReader(filePath);
 			Collection<Match> matchCollection = matchLogFileReader.read();
 
-			assertThat("A coleÁ„o de matchs n„o pode ser vazia", matchCollection, not(emptyCollectionOf(Match.class)));
-			assertThat("A coleÁ„o deve ter trÍs matchs", matchCollection, hasSize(3));
+			assertThat("A cole√ß√£o de matchs n√£o pode ser vazia", matchCollection, not(emptyCollectionOf(Match.class)));
+			assertThat("A cole√ß√£o deve ter tr√™s matchs", matchCollection, hasSize(3));
 		} catch (FileNotFoundException e){
 			fail(
-				String.format("Arquivo %s n„o encontrado", pathFile)
+				String.format("Arquivo %s n√£o encontrado", filePath)
 			);
 		}
 	}
 
 	@Test
 	public void deveRetornarTresDiferentesMatchsFinalizadosComSucesso(){
-		String pathFile = "src/test/resources/match/log/tres-matchs.log";
+		String filePath = "src/test/resources/match/log/tres-matchs.log";
 		try {
-			MatchLogFileReader matchLogFileReader = new MatchLogFileReader(pathFile);
+			MatchLogFileReader matchLogFileReader = new MatchLogFileReader(filePath);
 			Collection<Match> matchCollection = matchLogFileReader.read();
 
-			assertThat("A coleÁ„o de matchs n„o pode ser vazia", matchCollection, not(emptyCollectionOf(Match.class)));
-			assertThat("A coleÁ„o deve ter trÍs matchs", matchCollection, hasSize(3));
+			assertThat("A cole√ß√£o de matchs n√£o pode ser vazia", matchCollection, not(emptyCollectionOf(Match.class)));
+			assertThat("A cole√ß√£o deve ter tr√™s matchs", matchCollection, hasSize(3));
 
 			Iterator<Match> it = matchCollection.iterator();
 			while(it.hasNext()){
@@ -59,36 +59,36 @@ public class MatchLogFileReaderTest {
 			}
 		} catch (FileNotFoundException e){
 			fail(
-				String.format("Arquivo %s n„o encontrado", pathFile)
+				String.format("Arquivo %s n√£o encontrado", filePath)
 			);
 		}
 	}
 
 	@Test
 	public void deveRetornarListaVaziaDeArquivoSemLinhaDeCriacaoDeMatch(){
-		String pathFile = "src/test/resources/match/log/arquivo-sem-linha-de-criacao-de-match.log";
+		String filePath = "src/test/resources/match/log/arquivo-sem-linha-de-criacao-de-match.log";
 		try {
-			MatchLogFileReader matchLogFileReader = new MatchLogFileReader(pathFile);
+			MatchLogFileReader matchLogFileReader = new MatchLogFileReader(filePath);
 			Collection<Match> matchCollection = matchLogFileReader.read();
 
-			assertThat("A coleÁ„o de matchs deve estar vazia", matchCollection, emptyCollectionOf(Match.class));
+			assertThat("A cole√ß√£o de matchs deve estar vazia", matchCollection, emptyCollectionOf(Match.class));
 
 		} catch (FileNotFoundException e){
 			fail(
-				String.format("Arquivo %s n„o encontrado", pathFile)
+				String.format("Arquivo %s n√£o encontrado", filePath)
 			);
 		}
 	}
 
 	@Test
 	public void deveRetornarListaComDoisMatchsEncerradosUmMatchEmAndamento(){
-		String pathFile = "src/test/resources/match/log/dois-match-encerrados-um-match-em-andamento.log";
+		String filePath = "src/test/resources/match/log/dois-match-encerrados-um-match-em-andamento.log";
 		try {
-			MatchLogFileReader matchLogFileReader = new MatchLogFileReader(pathFile);
+			MatchLogFileReader matchLogFileReader = new MatchLogFileReader(filePath);
 			Collection<Match> matchCollection = matchLogFileReader.read();
 
-			assertThat("A coleÁ„o de matchs n„o deve estar vazia", matchCollection, not(emptyCollectionOf(Match.class)));
-			assertThat("A coleÁ„o deve ter trÍs matchs", matchCollection, hasSize(3));
+			assertThat("A cole√ß√£o de matchs n√£o deve estar vazia", matchCollection, not(emptyCollectionOf(Match.class)));
+			assertThat("A cole√ß√£o deve ter tr√™s matchs", matchCollection, hasSize(3));
 
 			Iterator<Match> it = matchCollection.iterator();
 			while(it.hasNext()){
@@ -96,13 +96,13 @@ public class MatchLogFileReaderTest {
 				if(match.getId() == 1 || match.getId() == 2){
 					assertThat("A o match deve ter data de encerramento configurada", match.getFinishDatetime(), is(notNullValue()));
 				} else if (match.getId() == 3){
-					assertThat("A o match deve n„o deve data de encerramento configurada", match.getFinishDatetime(), is(nullValue()));
+					assertThat("A o match deve n√£o deve data de encerramento configurada", match.getFinishDatetime(), is(nullValue()));
 				}
 			}
 
 		} catch (FileNotFoundException e){
 			fail(
-				String.format("Arquivo %s n„o encontrado", pathFile)
+				String.format("Arquivo %s n√£o encontrado", filePath)
 			);
 		}
 	}

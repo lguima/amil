@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.amil.predojo.entity.assassination.parser.impl;
+package com.amil.predojo.entity.player.parser.impl;
 
 import java.text.ParseException;
 

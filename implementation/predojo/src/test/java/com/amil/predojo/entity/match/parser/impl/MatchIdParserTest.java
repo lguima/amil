@@ -25,7 +25,7 @@ public class MatchIdParserTest {
 			MatchIdParser matchIdParser = new MatchIdParser();
 			Long matchId = matchIdParser.parse("23/04/2013 15:34:22 - New match 11348965 has started");
 
-			assertThat("Id do Match n„o deve ser nulo", matchId, is(notNullValue()));
+			assertThat("Id do Match n√£o deve ser nulo", matchId, is(notNullValue()));
 		} catch (ParseException e) {
 			fail("Problemas ao realizar o parser de %s, corrija e tente novamente");
 		}
@@ -37,8 +37,8 @@ public class MatchIdParserTest {
 			MatchIdParser matchIdParser = new MatchIdParser();
 			Long matchId = matchIdParser.parse("23/04/2013 15:34:22 - New match 11348965 has started");
 
-			assertThat("Id do Match n„o deve ser nulo", matchId, is(notNullValue()));
-			assertThat("Id do Match n„o deve ser nulo", 11348965l, equalTo(matchId));
+			assertThat("Id do Match n√£o deve ser nulo", matchId, is(notNullValue()));
+			assertThat("Id do Match n√£o deve ser nulo", 11348965l, equalTo(matchId));
 		} catch (ParseException e) {
 			fail("Problemas ao realizar o parser de %s, corrija e tente novamente");
 		}

@@ -24,11 +24,10 @@ public class CreateMatchParser extends AbstractParser<Match, String> {
 	public Match parse(String value) throws ParseException {
 		Match match = null;
 		if(isParsed(value)){
-			match = new Match();
 			//Datime parse process
 			DatetimeParser datetimeParser = new DatetimeParser();
-			Date finishDatetime = datetimeParser.parse(value);
-			match.setStartDatetime(finishDatetime);
+			Date creationDatetime = datetimeParser.parse(value);
+			match = new Match(creationDatetime);
 
 			//Match id parse process
 			MatchIdParser matchIdParser = new MatchIdParser();

@@ -13,7 +13,7 @@ import java.util.Date;
 import org.junit.Test;
 
 import com.amil.predojo.entity.Murder;
-import com.amil.predojo.entity.assassination.parser.impl.MurderParser;
+import com.amil.predojo.entity.murder.parser.impl.MurderParser;
 
 /**
  * @author Juliano Sena

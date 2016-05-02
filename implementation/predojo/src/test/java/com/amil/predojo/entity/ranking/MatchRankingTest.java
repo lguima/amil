@@ -20,6 +20,7 @@ import org.junit.rules.ExpectedException;
 
 import com.amil.predojo.entity.Match;
 import com.amil.predojo.entity.Player;
+import com.amil.predojo.entity.Weapon;
 import com.amil.predojo.entity.match.file.log.reader.impl.MatchLogFileReader;
 import com.amil.predojo.entity.ranking.exception.RankingException;
 import com.amil.predojo.entity.ranking.impl.MatchRanking;
@@ -94,13 +95,15 @@ public class MatchRankingTest {
 
 	@Test
 	public void deveRetornarVencedorDoMatchEsperadoESuaArmaPreferida() throws RankingException{
-		String filePath = "src/test/resources/match/log/match-player-roman-vencedor.log";
+		String filePath = "src/test/resources/match/log/match-player-juliano-vencedor.log";
 		try {
 			MatchLogFileReader matchLogFileReader = new MatchLogFileReader(filePath);
 			Collection<Match> matchCollection = matchLogFileReader.read();
 			Match match = matchCollection.iterator().next();
-			Player winner = new Player();
-			winner.setName("Juliano");
+			Player expectedWinner = new Player();
+			expectedWinner.setName("Juliano");
+			Weapon expectedWeapon = new Weapon();
+			expectedWeapon.setName("M16");
 
 			Ranking<RankingPlayer> ranking = new MatchRanking(match);
 			Collection<RankingPlayer> rankingPlayerCollection = ranking.rankear();
@@ -108,8 +111,8 @@ public class MatchRankingTest {
 
 			assertThat("A collection de players do ranking não deve ser vazia", rankingPlayerCollection, is(not(empty())));
 			assertThat("A collection de players do ranking deve ter 9(nove) jogadores", rankingPlayerCollection, hasSize(totalPlayers));
-			assertThat("O nome do vencedor deve ser o Juliano", rankingPlayerCollection.iterator().next().getPlayer(), equalTo(winner));
-			assertThat("O nome do vencedor deve ser o Roman", rankingPlayerCollection.iterator().next().getPlayer(), equalTo(winner));
+			assertThat("O nome do vencedor deve ser o Juliano", ranking.winner().getPlayer(), equalTo(expectedWinner));
+			assertThat("A arma preferida do vencedor deve ser M16", ranking.winner().prefferedWeapon(), equalTo(expectedWeapon));
 
 		} catch (FileNotFoundException e){
 			fail(

@@ -5,11 +5,11 @@ package com.amil.predojo.entity.ranking;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
 
 import com.amil.predojo.entity.Murder;
 import com.amil.predojo.entity.Player;
 import com.amil.predojo.entity.Weapon;
+import com.amil.predojo.entity.ranking.impl.WeaponRanking;
 
 /**
  * @author Juliano Sena
@@ -18,13 +18,14 @@ import com.amil.predojo.entity.Weapon;
 public class RankingPlayer {
 
 	private Player player;
-	private Map<Weapon,Long> murderWeapon;
+	private Collection<Award> awardsCollection;
+	private Collection<Murder> murderCollection;
 	private Long totalMurders = 0l;
 	private Long totalDeaths = 0l;
-	private Collection<Award> awardsCollection;
 
 	public RankingPlayer(Player player){
 		this.player = player;
+		this.murderCollection = new ArrayList<>();
 		this.awardsCollection = new ArrayList<>();
 	}
 
@@ -49,7 +50,8 @@ public class RankingPlayer {
 		return totalDeaths;
 	}
 
-	public void addMurder(){
+	public void addMurder(Murder murder){
+		this.murderCollection.add(murder);
 		this.totalMurders++;
 	}
 
@@ -57,11 +59,20 @@ public class RankingPlayer {
 		this.totalDeaths++;
 	}
 
+	public Collection<Murder> getMurderCollection(){
+		return this.murderCollection;
+	}
+
 	/**
 	 * @return the awardsCollection
 	 */
 	public Collection<Award> getAwardsCollection() {
 		return awardsCollection;
+	}
+
+	public Weapon prefferedWeapon(){
+		WeaponRanking weaponRanking = new WeaponRanking(this);
+		return weaponRanking.winner().getweapon();
 	}
 
 	/* (non-Javadoc)

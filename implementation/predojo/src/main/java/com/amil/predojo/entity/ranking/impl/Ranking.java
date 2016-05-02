@@ -9,10 +9,10 @@ import java.util.Collection;
  * @author Juliano Sena
  *
  */
-public interface Ranking<T, E> {
+public interface Ranking<T> {
 
 	public Collection<T> rankear();
 
-	public E winner();
+	public T winner();
 
 }

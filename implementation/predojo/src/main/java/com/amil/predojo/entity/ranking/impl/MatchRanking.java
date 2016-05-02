@@ -7,11 +7,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.amil.predojo.entity.Murder;
 import com.amil.predojo.entity.Match;
+import com.amil.predojo.entity.Murder;
 import com.amil.predojo.entity.Player;
 import com.amil.predojo.entity.match.comparator.ComparatorByMoreMurderDesc;
-import com.amil.predojo.entity.player.decorator.Winner;
 import com.amil.predojo.entity.ranking.RankingPlayer;
 import com.amil.predojo.entity.ranking.exception.RankingException;
 
@@ -19,10 +18,10 @@ import com.amil.predojo.entity.ranking.exception.RankingException;
  * @author Juliano Sena
  *
  */
-public class MatchRanking extends AbstractRanking<RankingPlayer, Player> {
+public class MatchRanking extends AbstractRanking<RankingPlayer> {
 
 	private Match match;
-	private Winner winner;
+	private RankingPlayer winner;
 
 	/**
 	 * @param rakiable
@@ -38,7 +37,6 @@ public class MatchRanking extends AbstractRanking<RankingPlayer, Player> {
 	/* (non-Javadoc)
 	 * @see com.amil.predojo.entity.ranking.impl.Ranking#rankear()
 	 */
-	@Override
 	public Collection<RankingPlayer> rankear() {
 		Match match = this.match;
 		Collection<Player> playerSet = match.players();
@@ -51,7 +49,7 @@ public class MatchRanking extends AbstractRanking<RankingPlayer, Player> {
 				for(Murder murder : match.getMurders()){
 					//Adiciono um assassinato para o jogador
 					if(murder.getkiller().equals(player)){
-						rankingPlayer.addMurder();
+						rankingPlayer.addMurder(murder);
 					}
 
 					//Adiciono uma morte para o jogador
@@ -65,29 +63,20 @@ public class MatchRanking extends AbstractRanking<RankingPlayer, Player> {
 		}
 
 		rankingPlayerCollection.sort(new ComparatorByMoreMurderDesc());
+
 		return rankingPlayerCollection;
 	}
 
 	/* (non-Javadoc)
 	 * @see com.amil.predojo.entity.ranking.impl.Ranking#winner()
 	 */
-	@Override
-	public Player winner() {
-		Winner winner = this.winner;
+	public RankingPlayer winner() {
+		RankingPlayer winner = this.winner;
 		if(winner == null){
 			Collection<RankingPlayer> rankingPlayerCollection = this.rankear();
-			winner = new Winner(rankingPlayerCollection.iterator().next().getPlayer());
-
-			for(Murder murder : match.getMurders()){
-				//Adiciono um assassinato para o jogador
-				if(murder.getkiller().equals(winner)){
-					
-				}
-			}
-
-			winner.setPreferredWeapon(null);
+			winner = rankingPlayerCollection.iterator().next();
 		}
-		return null;
+		return winner;
 	}
 
 }

@@ -1,4 +1,4 @@
-INSTRUÇÔES DE TESTE
+INSTRUÇÕES DE TESTE
 ========
 Compile o projeto utilizando o Maven, com o seguinte command "mvn clean package"
 Dentro da pasta target gerada pelo maven será criado um arquivo chamado "predojo-1.0-SNAPSHOT.jar"

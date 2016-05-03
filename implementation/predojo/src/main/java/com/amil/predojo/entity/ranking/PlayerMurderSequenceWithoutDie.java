@@ -28,6 +28,6 @@ public class PlayerMurderSequenceWithoutDie {
 	}
 	
 	public String toString(){
-		return String.format("A melhor sequência de assassinatos feita sem morrer foi feita pelo jogador %s, matou %d sem morrer", player.getName(), murderSequenceWithoutDie.value());
+		return String.format("Jogador %s, matou %d sem morrer", player.getName(), murderSequenceWithoutDie.value());
 	}
 }

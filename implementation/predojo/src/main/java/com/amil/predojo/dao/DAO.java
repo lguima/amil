@@ -6,4 +6,6 @@ package com.amil.predojo.dao;
  */
 public interface DAO {
 
+	<T> T findAll();
+
 }

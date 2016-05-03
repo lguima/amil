@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.amil.predojo.entity.Match;
 import com.amil.predojo.entity.Murder;
 import com.amil.predojo.entity.Player;
@@ -24,6 +26,8 @@ import com.amil.predojo.entity.rewarding.impl.MainRewarding;
  *
  */
 public class MatchRanking extends AbstractRanking<RankingPlayer> {
+
+	public static final Logger LOGGER = Logger.getLogger(MatchRanking.class);
 
 	private Match match;
 	private RankingPlayer winner;
@@ -93,6 +97,8 @@ public class MatchRanking extends AbstractRanking<RankingPlayer> {
 	}
 
 	public PlayerMurderSequenceWithoutDie mostMurderSequenceWithoutDie(){
+		LOGGER.debug("Recuperando a melhor sequência de assassinato sem morrer do ranking do jogo");
+
 		Collection<PlayerMurderSequenceWithoutDie> playerMurderSequenceWithoutDieCollection = new ArrayList<>();
 		if(this.playerMurderSequenceWithoutDie == null){
 			Collection<RankingPlayer> rankingPlayerCollection = this.rankear();
@@ -101,8 +107,12 @@ public class MatchRanking extends AbstractRanking<RankingPlayer> {
 				MurderSequenceWithoutDie murderSequenceWithoutDie = rankingPlayer.mostMurderSequenceWithoutDie();
 				playerMurderSequenceWithoutDieCollection.add(new PlayerMurderSequenceWithoutDie(player, murderSequenceWithoutDie));
 			}
+
+			LOGGER.debug("Coleção de players e suas sequências size: " + playerMurderSequenceWithoutDieCollection.size());
+			LOGGER.debug("Coleção de players e suas sequências: " + playerMurderSequenceWithoutDieCollection);
+
+			this.playerMurderSequenceWithoutDie = Collections.max(playerMurderSequenceWithoutDieCollection, new MostPlayerMurderSequenceWithoutDieComparator());
 		}
-		this.playerMurderSequenceWithoutDie = Collections.max(playerMurderSequenceWithoutDieCollection, new MostPlayerMurderSequenceWithoutDieComparator());
 
 		return this.playerMurderSequenceWithoutDie;
 	}

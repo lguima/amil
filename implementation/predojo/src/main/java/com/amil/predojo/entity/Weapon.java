@@ -36,4 +36,8 @@ public class Weapon {
 			return false;
 		return true;
 	}
+
+	public String toString(){
+		return this.name;
+	}
 }

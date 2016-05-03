@@ -35,7 +35,7 @@ public class FinishMatchParser extends AbstractParser<Match, String> {
 			Long matchId = matchIdParser.parse(value);
 
 			if(!matchId.equals(match.getId())){
-				throw new ParseException("Id de encerramento divergente do id do match recebido como par�metro", 0);
+				throw new ParseException("Id de encerramento divergente do id do match recebido como parâmetro", 0);
 			}
 
 			try {

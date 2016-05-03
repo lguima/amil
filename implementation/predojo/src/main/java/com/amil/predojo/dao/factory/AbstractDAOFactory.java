@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import com.amil.predojo.factory.Factory;
-import com.amil.predojo.file.dao.factory.impl.FileDAOFactory;
+import com.amil.predojo.file.dao.factory.impl.LogFileDAOFactory;
 
 /**
  * @author Juliano Sena
@@ -32,7 +32,7 @@ public class AbstractDAOFactory implements Factory<DAOFactory> {
 			factory = (DAOFactory) classFactory.newInstance();
 
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-			factory = new FileDAOFactory();
+			factory = new LogFileDAOFactory();
 		}
 
 		return factory;

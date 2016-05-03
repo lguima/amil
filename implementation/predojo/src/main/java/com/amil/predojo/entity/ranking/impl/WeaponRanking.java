@@ -5,7 +5,6 @@ package com.amil.predojo.entity.ranking.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 import com.amil.predojo.entity.Murder;
@@ -32,12 +31,8 @@ public class WeaponRanking extends AbstractRanking<RankingWeapon> {
 	 */
 	public Collection<RankingWeapon> rankear() {
 		List<RankingWeapon> rankingWeaponCollection = new ArrayList<>();
-		Collection<Weapon> weaponSet = new HashSet<>();
-		for(Murder murder : this.rankingPlayer.getMurderCollection()){
-			weaponSet.add(murder.getWeapon());
-		}
 
-		for(Weapon weapon : weaponSet){
+		for(Weapon weapon : this.rankingPlayer.weaponsUsed()){
 			RankingWeapon rankingWeapon = new RankingWeapon(weapon);
 
 			for(Murder murder : this.rankingPlayer.getMurderCollection()){

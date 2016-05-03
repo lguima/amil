@@ -2,6 +2,7 @@ package com.amil.predojo.dao.factory;
 
 import com.amil.predojo.dao.DAO;
 import com.amil.predojo.dao.ImplementationDAO;
+import com.amil.predojo.factory.exception.FactoryCreationException;
 
 /**
  * @author Juliano Sena
@@ -9,6 +10,6 @@ import com.amil.predojo.dao.ImplementationDAO;
  */
 public interface DAOFactory {
 
-	public DAO create(ImplementationDAO implementationDAO);
+	public DAO create(ImplementationDAO implementationDAO) throws FactoryCreationException;
 
 }
